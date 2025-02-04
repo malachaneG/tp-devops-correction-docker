@@ -1,0 +1,58 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main   # Trigger only when code is pushed to the main branch
+  pull_request:
+    branches:
+      - develop  # Trigger when a PR is created targeting the main branch
+
+jobs:
+  build-and-push-docker-image:
+    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    runs-on: ubuntu-22.04
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Extract version from pom.xml
+      - name: Get version from pom.xml
+        id: version
+        run: |
+          VERSION=$(xmlstarlet sel -t -v "/*[local-name()='project']/*[local-name()='version']" pom.xml)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Version is $VERSION"
+
+      # Step 3: Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Step 4: Build the Docker image
+      - name: Build and push backend image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./simple-api
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:${{ env.VERSION }}
+          push: true  # Push image to Docker Hub
+
+      # Step 5: Build and push database image (with versioning)
+      - name: Build and push database image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./database
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:${{ env.VERSION }}
+          push: true  # Push image to Docker Hub
+
+      # Step 6: Build and push HTTP image (with versioning)
+      - name: Build and push httpd image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./http-server
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-http-server:${{ env.VERSION }}
+          push: true  # Push image to Docker Hub

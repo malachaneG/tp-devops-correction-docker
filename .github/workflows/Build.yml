@@ -32,7 +32,7 @@ jobs:
         with:
           context: ./simple-api
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
-          push: true  # Always push the image to Docker Hub
+          push: false  # Always push the image to Docker Hub
 
       # Build and push database image to Docker Hub
       - name: Build image and push database
