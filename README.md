@@ -10,4 +10,4 @@ controle de la bonne execution du workflow
 Cela permet d'avoir un dépôt central où vos images Docker sont gérées.
 Réutilisation : Vous pouvez tirer la même image plusieurs fois à partir de n'importe quel environnement (développement, staging, production), garantissant ainsi 
 que l'application s'exécute dans le même environnement et avec la même configuration à chaque fois.
-cela permet aussi une partage facile
+cela permet aussi une partage facile.
