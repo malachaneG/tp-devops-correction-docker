@@ -26,4 +26,5 @@ jobs:
 
       # Step 3: Build and test with Maven
       - name: Build and test with Maven
-        run: mvn clean verify   # This command cleans, compiles, and runs the tests
+        run: mvn clean verify
+        working-directory: simple-api
