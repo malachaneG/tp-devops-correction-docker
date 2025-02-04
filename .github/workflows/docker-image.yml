@@ -10,7 +10,6 @@ on:
 
 jobs:
   build-and-push-docker-image:
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
     runs-on: ubuntu-22.04
 
     steps:
