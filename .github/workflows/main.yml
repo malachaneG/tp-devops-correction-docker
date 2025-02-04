@@ -1,0 +1,29 @@
+name: CI devops 2025
+
+on:
+  push:
+    branches:
+      - main       # You want the pipeline to trigger when changes are pushed to the main branch
+      - develop    # Optionally, you may also want it to trigger on the develop branch
+  pull_request:
+    branches:
+      - main       # This ensures it runs when a pull request is made targeting the main branch
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-22.04   # Choose Ubuntu as the operating system to run the job on
+
+    steps:
+      # Step 1: Checkout the code
+      - uses: actions/checkout@v2.5.0   # Action the code from your GitHub repository
+
+      # Step 2: Set up JDK 21 (ensure you use the correct version required for your project)
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3   # Set up the required version of Java (JDK 21 in this case)
+        with:
+          java-version: '21'   # This should match the version required for your application
+          distribution: 'corretto'
+
+      # Step 3: Build and test with Maven
+      - name: Build and test with Maven
+        run: mvn clean verify   # This command cleans, compiles, and runs the tests
