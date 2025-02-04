@@ -28,7 +28,7 @@ jobs:
 
       # Build and test with Maven
       - name: Build and test with Maven
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=malachaneG_tp-devops-correction-docker -Dsonar.organization=malachaneg -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./simple-api/pom.xml
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=malachaneG_tp-devops-correction-docker -Dsonar.organization=malachaneg -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./simple-api/target/pom.xml
         working-directory: simple-api
 
   build-and-push-docker-image:
