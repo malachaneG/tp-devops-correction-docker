@@ -34,6 +34,7 @@ jobs:
   build-and-push-docker-image:
     needs: test-backend
     runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main'
 
     steps:
       # Checkout the code from GitHub repository
@@ -53,7 +54,7 @@ jobs:
         with:
           context: ./simple-api
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
-          push: ${{ github.ref == 'refs/heads/main' }}  # Only push if it's on the main branch
+          push: true # Only push if it's on the main branch
 
       # Build and push database image to Docker Hub
       - name: Build image and push database
@@ -61,7 +62,7 @@ jobs:
         with:
           context: ./database
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
-          push: ${{ github.ref == 'refs/heads/main' }}  # Only push if it's on the main branch
+          push: true # Only push if it's on the main branch
 
       # Build and push HTTP image to Docker Hub
       - name: Build image and push httpd
@@ -69,5 +70,5 @@ jobs:
         with:
           context: ./http-server
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-http-server:latest
-          push: ${{ github.ref == 'refs/heads/main' }}  # Only push if it's on the main branch
+          push: true  # Only push if it's on the main branch
 
