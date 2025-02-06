@@ -53,6 +53,6 @@ jobs:
       - name: Build and push Frontend app image
         uses: docker/build-push-action@v3
         with:
-          context: ./App-front  # The location of your frontend folder with the Dockerfile
+          context: ./app-front  # The location of your frontend folder with the Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-frontend:latest
           push: true  # Always push the image to Docker Hub
