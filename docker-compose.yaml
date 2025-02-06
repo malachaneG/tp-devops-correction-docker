@@ -27,9 +27,9 @@ services:
   app-front:
     build: "app-front"  # Make sure your front-end has a Dockerfile in the 'frontend' directory
     environment:
-      - API_URL=http://simple-api:80  # Replace PORT with your actual API port
+      - API_URL=http://simple-api:8080 # Replace PORT with your actual API port
     ports:
-      - "8080:80"  # Exposing the front-end on port 8080
+      - "8888:80"  # Exposing the front-end on port 8888
     networks:
       - my-network
 
