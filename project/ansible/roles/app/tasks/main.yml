@@ -1,0 +1,12 @@
+- name: Run application container
+  docker_container:
+    name: simple-api
+    image: gustavem30/tp-devops-simple-api:latest
+    pull: yes
+    state: started
+    env:
+      DATABASE_HOST: database
+      DATABASE_PASSWORD: pwd
+    networks:
+      - name: my-network
+

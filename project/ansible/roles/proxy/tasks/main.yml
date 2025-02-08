@@ -1,0 +1,11 @@
+- name: Run Proxy (HTTPD) container
+  docker_container:
+    name: http-server
+    image: gustavem30/tp-devops-http-server:latest  # Use the official HTTPD image from DockerHub or specify your custom image
+    pull: yes # This assumes you have a Dockerfile in the 'http-server' directory
+    networks:
+      - name: my-network
+    ports:
+      - "80:80"
+      - "8080:8080"
+

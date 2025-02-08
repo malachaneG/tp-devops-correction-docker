@@ -1,0 +1,10 @@
+- name: Run Frontend Application container
+  docker_container:
+    name: app-front
+    image: gustavem30/tp-devops-frontend:latest
+    pull: yes
+    state: started  # Ensure this path is correct where the Dockerfile for your front-end is located
+    env:
+      API_URL: "http://simple-api:8080"  # Assuming simple-api listens on port 8080
+    networks:
+      - name: my-network

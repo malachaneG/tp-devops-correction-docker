@@ -1,0 +1,15 @@
+- name: Run PostgreSQL Database container
+  docker_container:
+    name: database
+    image: gustavem30/tp-devops-database:latest 
+    pull: yes # Official PostgreSQL image from DockerHub
+    state: started
+    restart_policy: always
+    env:
+      POSTGRES_USER: usr
+      POSTGRES_PASSWORD: pwd
+      POSTGRES_DB: db
+    networks:
+      - name: my-network
+    volumes:
+      - db-volume:/var/lib/postgresql/data 

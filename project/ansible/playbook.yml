@@ -1,0 +1,14 @@
+- name: Deploy Application, Database, and Proxy Containers
+  hosts: all
+  become: true
+  gather_facts: true
+
+  roles:
+    - docker
+    - network       # Create the network
+    - database          # Run PostgreSQL container
+    - app   
+    - front               # Run application container
+    - proxy 
+                   
+
